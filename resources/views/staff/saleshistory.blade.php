@@ -88,7 +88,7 @@
                                     @endif
                                 </td>
                                 <td class="border text-nowrap border-gray-300 px-4 py-2 text-center">
-                                    <a href="{{ route('sales.detail', $order->id) }}" class="text-blue-500 hover:underline">
+                                    <a href="{{ route('staff.sales.detail', $order->id) }}" class="text-blue-500 hover:underline">
                                         ดูรายละเอียด
                                     </a>
                                 </td>
@@ -166,7 +166,7 @@
                             @endif
 
                             <!-- ลิงก์รายละเอียด -->
-                            <a href="{{ route('sales.detail', $order->id) }}"
+                            <a href="{{ route('staff.sales.detail', $order->id) }}"
                                 class="ml-2 text-blue-600 hover:underline text-sm">
                                 ดูรายละเอียด
                             </a>

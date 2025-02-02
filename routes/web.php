@@ -92,15 +92,14 @@ Route::middleware(['auth', 'user-access:staff'])->group(function () {
     Route::resource('/staff/member', MembersController::class);
     Route::put('/staff/member/update/{id}', [MembersController::class, 'update'])->name('member.update');
     Route::delete('/staff/member/destroy/{id}', [MembersController::class, 'destroy'])->name('member.destroy');
-    Route::get('/staff/sales-history', [OrderController::class, 'salesHistory'])->name('sales.history');
-    Route::get('/staff/sales-history/{id}', [OrderController::class, 'salesDetail'])->name('sales.detail');
-    Route::get('/staff/sales-history2/{orderNumber}', [OrderController::class, 'salesDetail2'])->name('sales.detail2');
+    Route::get('/staff/sales-history', [OrderController::class, 'salesHistory'])->name('staff.sales.history');
+    Route::get('/staff/sales-history/{id}', [OrderController::class, 'salesDetail'])->name('staff.sales.detail');
+    Route::get('/staff/sales-history2/{orderNumber}', [OrderController::class, 'salesDetail2'])->name('staff.sales.detail2');
     Route::get('/staff/purchase-history/{id}', [MembersController::class, 'purchaseHistory'])->name('staff.purchase_history');
     Route::get('/staff/stock', [StockController::class, 'index'])->name('staff.stock');
     Route::post('/staff/stock/pendingStock/{id}/add', [StockController::class, 'pendingStockAdd'])->name('pendingStockAdd');
     Route::post('/staff/stock/pendingStock/{id}/reduce', [StockController::class, 'pendingStockReduce'])->name('pendingStockReduce');
-    Route::get('/staff/stock/movements/{product}', [StockController::class, 'showStockMovements'])->name('stock.movements');
-
+    
     // POS
     Route::get('/pos', [POSController::class, 'index'])->name('pos.index');
     Route::post('/pos/add-to-cart', [POSController::class, 'addToCart'])->name('pos.addToCart');
