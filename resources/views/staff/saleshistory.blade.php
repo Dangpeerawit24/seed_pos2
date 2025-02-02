@@ -51,7 +51,7 @@
                                             @method('PATCH')
                                             <button type="button"
                                                 class="bg-yellow-500 hover:bg-yellow-800 text-white font-semibold px-4 py-2 rounded"
-                                                onclick="submitCancelForm({{ $order->id }})">
+                                                onclick="submitCancelForm({{ $order->id }})" disabled>
                                                 รอตรวจสอบ
                                             </button>
                                         </form>
@@ -61,8 +61,8 @@
                                             @method('PATCH')
                                             <button type="button"
                                                 class="bg-blue-500 hover:bg-blue-800 text-white font-semibold px-4 py-2 rounded"
-                                                onclick="chooseAction({{ $order->id }})">
-                                                คืนสินค้า
+                                                onclick="chooseAction({{ $order->id }})" disabled>
+                                                ยืมสินค้า
                                             </button>
                                         </form>
                                     @elseif ($order->status === 'completed')
@@ -139,7 +139,7 @@
                                     @method('PATCH')
                                     <button type="button"
                                         class="bg-yellow-500 hover:bg-yellow-800 text-white font-semibold px-3 py-1 rounded"
-                                        onclick="submitCancelForm({{ $order->id }})">
+                                        onclick="submitCancelForm({{ $order->id }})" disabled>
                                         รอตรวจสอบ
                                     </button>
                                 </form>
@@ -149,7 +149,7 @@
                                     @method('PATCH')
                                     <button type="button"
                                         class="bg-blue-500 hover:bg-blue-800 text-white font-semibold px-4 py-2 rounded"
-                                        onclick="chooseAction({{ $order->id }})">
+                                        onclick="chooseAction({{ $order->id }})" disabled>
                                         คืนสินค้า
                                     </button>
                                 </form>

@@ -148,6 +148,10 @@
 
     @endif
 
+    @if (request('title') === 'ใบคืนสินค้า')
+        <h4>หมายเหตุ : {{ request('note') }}</h4>
+    @endif
+
 
     <table class="signature-table" style="margin-top: 30px; width: 100%;">
         <tr>

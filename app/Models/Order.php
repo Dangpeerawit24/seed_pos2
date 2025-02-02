@@ -80,6 +80,10 @@ class Order extends Model
             return 'เงินสด';
         } elseif ($this->payment_method === 'borrow') {
             return 'ยืมสินค้า';
+        } elseif ($this->payment_method === 'rebate') {
+            return 'คืนเป็นสินค้า';
+        } elseif ($this->payment_method === 'rebateMoney') {
+            return 'คืนเป็นเงิน';
         } else {
             return 'โอนเข้าบัญชี';
         }

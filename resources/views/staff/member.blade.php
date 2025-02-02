@@ -171,7 +171,7 @@
 
             // เติมข้อมูลในฟอร์ม
             const form = document.getElementById('usersForm2');
-            form.action = `/admin/member/update/${id}`; // เปลี่ยน action ของฟอร์ม
+            form.action = `/staff/member/update/${id}`; // เปลี่ยน action ของฟอร์ม
 
             document.getElementById('name2').value = name;
             document.getElementById('phone2').value = phone;
@@ -244,7 +244,7 @@
                        <tr>
                            <td class="px-6 py-2 text-nowrap  text-center text-md text-gray-700">${startIndex + index + 1}</td>
                            <td class="px-6 py-2 text-nowrap  text-center text-md text-gray-700">
-                                <a href="/admin/purchase-history/${Member.id}?name=${Member.name}" class="text-blue-500 hover:text-blue-700">${Member.name}</a>
+                                <a href="/staff/purchase-history/${Member.id}?name=${Member.name}" class="text-blue-500 hover:text-blue-700">${Member.name}</a>
                             </td>
                            <td class="px-6 py-2 text-nowrap  text-center text-md text-gray-700">${Member.phone}</td>
                            <td class="px-6 py-2 text-nowrap  text-center text-md text-gray-700">
@@ -254,7 +254,7 @@
                                        onclick="openEditModal('${Member.id}', '${Member.name}', '${Member.phone}')">
                                        Edit
                                    </button>
-                                   <form id="deleteForm-${Member.id}" action="/admin/member/destroy/${Member.id}" method="POST">
+                                   <form id="deleteForm-${Member.id}" action="/staff/member/destroy/${Member.id}" method="POST">
                                        <input type="hidden" name="_method" value="DELETE">
                                        <input type="hidden" name="_token" value="${csrfToken}">
                                        <button type="button" onclick="confirmDelete(${Member.id})" 

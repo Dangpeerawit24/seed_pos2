@@ -4,11 +4,11 @@
 @endphp
 @section('content')
 <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">สรุปการขาย "วันนี้" (รายสินค้า)</h1>
+    <h1 class="text-2xl font-bold mb-4">สรุปการขาย "เดือนนี้" (รายสินค้า)</h1>
 
     <!-- การ์ดยอดรวมวันนี้ -->
     <div class="bg-white shadow p-4 rounded mb-4">
-        <h2 class="text-xl font-semibold">ยอดเงินรวม วันนี้</h2>
+        <h2 class="text-xl font-semibold">ยอดเงินรวม เดือนนี้</h2>
         <p class="text-3xl text-green-600 font-bold mt-2">
             {{ number_format($todaySum, 2) }} ฿
         </p>
@@ -16,7 +16,7 @@
 
     <!-- ตารางสรุป (overflow-x-auto รองรับจอเล็ก) -->
     <div class="bg-white shadow rounded p-4 mb-4">
-        <h2 class="text-xl font-semibold mb-2">รายการสินค้า (วันนี้)</h2>
+        <h2 class="text-xl font-semibold mb-2">รายการสินค้า (เดือนนี้)</h2>
         
         @if ($todayItems->count() > 0)
             <div class="overflow-x-auto">

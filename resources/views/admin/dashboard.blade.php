@@ -41,6 +41,14 @@
                 </div>
             </div>
             <div class="p-4 bg-white shadow rounded-lg">
+                <h2 class="text-lg font-semibold">รายการขอปรับสต็อก</h2>
+                <div class="flex flex-col ">
+                    <p class="text-2xl font-bold text-red-500">{{ $pendingStock->count() }}</p>
+                    <a class=" text-blue-600 hover:underline text-sm"
+                        href="/admin/stock_review">ดูรายละเอียด</a>
+                </div>
+            </div>
+            <div class="p-4 bg-white shadow rounded-lg">
                 <h2 class="text-lg font-semibold">สินค้าใกล้หมด</h2>
                 <div class="flex flex-col ">
                     <p class="text-2xl font-bold text-red-500">{{ $lowStockProducts->count() }}</p>

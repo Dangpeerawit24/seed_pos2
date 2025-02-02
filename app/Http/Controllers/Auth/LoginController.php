@@ -61,7 +61,7 @@ class LoginController extends Controller
             } else if (Auth::user()->type == 'manager') {
                 return redirect()->route('manager.dashboard');
             } else {
-                return redirect()->route('home');
+                return redirect()->route('staff.pos');
             }
         } else {
             return redirect()->route('login')

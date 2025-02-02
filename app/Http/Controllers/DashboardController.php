@@ -15,10 +15,11 @@ class DashboardController extends Controller
     public function index()
     {
         // คำนวณยอดขายรวมเฉพาะคำสั่งซื้อที่สถานะเป็น 'completed'
-        $totalSales = Order::where('status', 'completed')
+        $totalSales = Order::whereIn('status', ['completed', 'rebateMoney'])
             ->whereYear('updated_at', now()->year)
             ->whereMonth('updated_at', now()->month)
             ->sum('total_amount');
+
 
         // นับจำนวนคำสั่งซื้อที่สถานะเป็น 'completed'
         $totalOrders = Order::where('status', '=', 'pending')->count();
@@ -26,12 +27,14 @@ class DashboardController extends Controller
         $borrowOrders = Order::where('status', '=', 'borrow')->count();
 
         // คำนวณยอดขายเฉพาะวันนี้
-        $salesToday = Order::where('status', 'completed')
+        $salesToday = Order::whereIn('status', ['completed', 'rebateMoney'])
             ->whereDate('updated_at', today())
             ->sum('total_amount');
 
         // สินค้าที่ใกล้หมดสต็อก
         $lowStockProducts = Product::whereColumn('stock_quantity', '<', 'restock_level')->get();
+
+        $pendingStock = StockMovement::where('status', '=', 'pending');
 
         // การอัปเดตสต็อกล่าสุด
         $recentStockMovements = StockMovement::with('user', 'product')->latest()->take(5)->get();
@@ -49,7 +52,7 @@ class DashboardController extends Controller
         // $cancelledOrders = Order::where('status', 'cancelled')->orderBy('created_at', 'desc')->get();
 
         // ส่งข้อมูลไปยัง View
-        return view('admin.dashboard', compact('totalSales', 'totalOrders', 'salesToday', 'lowStockProducts', 'recentStockMovements', 'soldProducts', 'borrowOrders'));
+        return view('admin.dashboard', compact('totalSales', 'totalOrders', 'salesToday', 'lowStockProducts', 'recentStockMovements', 'soldProducts', 'borrowOrders', 'pendingStock'));
     }
 
     public function todayProductSales()

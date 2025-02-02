@@ -14,7 +14,7 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        
+
         // เริ่ม Transaction
         DB::beginTransaction();
 
@@ -29,17 +29,15 @@ class OrderController extends Controller
                 'change'          => 'nullable|numeric|min:0',
                 // 'membership_id' => 'nullable|integer|exists:members,id',
                 // 'customer_name'   => 'nullable|string|max:255',
-            ]);            
-            
-            if ($request->membership_id == 'null')
-            {
+            ]);
+
+            if ($request->membership_id == 'null') {
                 $membership_id = '1';
             } else {
                 $membership_id = $request->membership_id;
             }
 
-            if ($request->customer_name == 'null')
-            {
+            if ($request->customer_name == 'null') {
                 $customer_name = 'null';
             } else {
                 $customer_name = $request->customer_name;
@@ -140,7 +138,7 @@ class OrderController extends Controller
                     $file->move(public_path('img/proof_image/'), $fileName);
                     $validatedData['proof_image'] = 'img/proof_image/' . $fileName;
                 }
-                
+
                 // บันทึกคำสั่งซื้อ (Order)
                 $order = Order::create([
                     'order_number'    => uniqid('ORD-'),
@@ -283,15 +281,20 @@ class OrderController extends Controller
         $status = $request->status;
 
         if ($status) {
-            $orders = \App\Models\Order::with('items')->where('status', $status)->orderBy('created_at', 'desc')->paginate(20);
+            $orders = \App\Models\Order::with('items')->where('status', $status)->orderBy('created_at', 'desc')->paginate(100);
+        } else if (Auth::user()->type === 'staff') {
+            $orders = \App\Models\Order::with('items')
+                ->where('user_id', auth()->id()) // Removed the space after 'user_id'
+                ->orderBy('created_at', 'desc')
+                ->paginate(100);
         } else {
-            $orders = \App\Models\Order::with('items')->orderBy('created_at', 'desc')->paginate(20);
+            $orders = \App\Models\Order::with('items')->orderBy('created_at', 'desc')->paginate(100);
         }
 
         if (Auth::user()->type === 'admin') {
             return view('admin.saleshistory', compact('orders'));
-        } elseif (Auth::user()->type === 'manager') {
-            return view('manager.saleshistory', compact('orders'));
+        } elseif (Auth::user()->type === 'staff') {
+            return view('staff.saleshistory', compact('orders'));
         }
         return view('home');
     }
@@ -305,8 +308,8 @@ class OrderController extends Controller
         // ส่งตัวแปร $order ไปยัง View
         if (Auth::user()->type === 'admin') {
             return view('admin.salesdetail', compact('order', 'id'));
-        } elseif (Auth::user()->type === 'manager') {
-            return view('manager.salesdetail', compact('order', 'id'));
+        } elseif (Auth::user()->type === 'staff') {
+            return view('staff.salesdetail', compact('order', 'id'));
         }
         return view('home');
     }
@@ -318,8 +321,8 @@ class OrderController extends Controller
 
         if (Auth::user()->type === 'admin') {
             return view('admin.salesdetail', compact('order'));
-        } elseif (Auth::user()->type === 'manager') {
-            return view('manager.salesdetail', compact('order'));
+        } elseif (Auth::user()->type === 'staff') {
+            return view('staff.salesdetail', compact('order'));
         }
         return view('home');
     }
@@ -464,7 +467,7 @@ class OrderController extends Controller
 
             // 1) อัปเดตสถานะเป็น 'rebate'
             $order->update([
-                'status' => 'completed',
+                'status' => 'rebateMoney',
             ]);
 
 

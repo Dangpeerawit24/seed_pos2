@@ -16,12 +16,6 @@
                 <p><strong>รหัสคำสั่งซื้อ:</strong> {{ $order->order_number }}</p>
                 <div class="hidden md:flex gap-1">
                     <div>
-                        <a id="button" href="/admin/orders/{{ $id }}/edit"
-                            class="inline-block px-4 py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                            แก้ไข
-                        </a>
-                    </div>
-                    <div>
                         @if ($order->status === 'borrow')
                             <a id="button" href="/orders/{{ $id }}/print?title=ใบยืมสินค้า" target="_blank"
                                 class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
@@ -45,18 +39,7 @@
                         @endif
                     </div>
                     <div>
-                        @if ($order->status !== 'cancelled')
-                            <form action="{{ route('orders.cancel', $order->id) }}" method="POST"
-                                id="orderscancel-{{ $order->id }}">
-                                @csrf
-                                @method('PATCH')
-                                <button type="button"
-                                    class="bg-red-500 hover:bg-red-800 text-white font-semibold px-4 py-2 rounded"
-                                    onclick="submitCancelForm({{ $order->id }})">
-                                    ยกเลิกบิล
-                                </button>
-                            </form>
-                        @else
+                        @if ($order->status == 'cancelled')
                             <span class="text-red-500 font-bold">ยกเลิกแล้ว</span><br>
                             <small class="text-gray-500">โดย {{ $order->cancelledBy->name ?? 'ไม่ทราบ' }}</small>
                         @endif
@@ -86,49 +69,26 @@
             @endif
             <div class="flex md:hidden space-x-2 mt-3">
                 <div>
-                    <a id="button" href="/admin/orders/{{ $id }}/edit"
-                        class="inline-block px-4 py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                        แก้ไข
-                    </a>
-                </div>
-                <div>
                     @if ($order->status === 'borrow')
-                            <a id="button" href="/orders/{{ $id }}/print?title=ใบยืมสินค้า" target="_blank"
-                                class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
-                                พิมพ์บิล
-                            </a>
-                        @elseif ($order->status === 'rebateMoney')
-                            <a href="javascript:void(0);" id="button" onclick="toggleModal()"
-                                class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
-                                พิมพ์บิล
-                            </a>
-                        @elseif ($order->status === 'rebate')
-                            <a href="javascript:void(0);" id="button" onclick="toggleModal()"
-                                class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
-                                พิมพ์บิล
-                            </a>
-                        @else
-                            <a id="button" href="/orders/{{ $id }}/print?title=ใบเสร็จรับเงิน" target="_blank"
-                                class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
-                                พิมพ์บิล
-                            </a>
-                        @endif
-                </div>
-                <div>
-                    @if ($order->status !== 'cancelled')
-                        <form action="{{ route('orders.cancel', $order->id) }}" method="POST"
-                            id="orderscancel-{{ $order->id }}">
-                            @csrf
-                            @method('PATCH')
-                            <button type="button"
-                                class="bg-red-500 hover:bg-red-800 text-white font-semibold px-4 py-2 rounded"
-                                onclick="submitCancelForm({{ $order->id }})">
-                                ยกเลิกบิล
-                            </button>
-                        </form>
+                        <a id="button" href="/orders/{{ $id }}/print?title=ใบยืมสินค้า" target="_blank"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+                            พิมพ์บิล
+                        </a>
+                    @elseif ($order->status === 'rebateMoney')
+                        <a href="javascript:void(0);" id="button" onclick="toggleModal()"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+                            พิมพ์บิล
+                        </a>
+                    @elseif ($order->status === 'rebate')
+                        <a href="javascript:void(0);" id="button" onclick="toggleModal()"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+                            พิมพ์บิล
+                        </a>
                     @else
-                        <span class="text-red-500 font-bold">ยกเลิกแล้ว</span><br>
-                        <small class="text-gray-500">โดย {{ $order->cancelledBy->name ?? 'ไม่ทราบ' }}</small>
+                        <a id="button" href="/orders/{{ $id }}/print?title=ใบเสร็จรับเงิน" target="_blank"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+                            พิมพ์บิล
+                        </a>
                     @endif
                 </div>
             </div>

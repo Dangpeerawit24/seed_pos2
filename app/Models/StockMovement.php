@@ -15,6 +15,8 @@ class StockMovement extends Model
         'quantity',
         'type',
         'note',
+        'status',
+        'operation',
     ];
 
     // สร้างความสัมพันธ์กับ User
