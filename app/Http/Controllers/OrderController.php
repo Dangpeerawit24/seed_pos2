@@ -437,7 +437,7 @@ class OrderController extends Controller
             }
 
             // 3) ลบ order items ออกจาก DB (เพราะคืนของแล้ว)
-            $order->items()->delete();
+            // $order->items()->delete();
 
             // ทุกอย่างผ่าน -> commit!
             DB::commit();
