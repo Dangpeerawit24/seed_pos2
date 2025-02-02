@@ -72,7 +72,11 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if (Auth::check() && Auth::user()->type) {
-            return route(Auth::user()->type . '.dashboard'); // เรียกใช้ Route ตาม type
+            if (Auth::user()->type == 'staff') {
+                return route('staff.pos');
+            } else {
+                return route(Auth::user()->type . '.dashboard'); // เรียกใช้ Route ตาม type
+            }
         }
 
         return '/login'; // กรณีไม่มี type หรือไม่ได้ Login
