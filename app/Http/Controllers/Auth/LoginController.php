@@ -58,8 +58,10 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $input['email'], 'password' => $input['password']])) {
             if (Auth::user()->type == 'admin') {
                 return redirect()->route('admin.dashboard');
-            } else if (Auth::user()->type == 'staff') {
-                return redirect()->view('staff.pos');
+            } else if (Auth::user()->type == 'manager') {
+                return redirect()->route('manager.dashboard');
+            } else {
+                return redirect()->route('staff.pos');
             }
         } else {
             return redirect()->route('login')
@@ -70,11 +72,7 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if (Auth::check() && Auth::user()->type) {
-            if (Auth::user()->type == 'staff') {
-                return route('staff.pos');
-            } else {
-                return route(Auth::user()->type . '.dashboard'); // เรียกใช้ Route ตาม type
-            }
+            return route(Auth::user()->type . '.dashboard'); // เรียกใช้ Route ตาม type
         }
 
         return '/login'; // กรณีไม่มี type หรือไม่ได้ Login
