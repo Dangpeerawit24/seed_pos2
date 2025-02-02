@@ -24,9 +24,20 @@ class HomeController extends Controller
      */
     public function index(): View
     {
-        return view('staff.pos');
+        return view('home');
     } 
   
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function staffHome(): View
+    {
+        return view('staff.pos');
+    }
+
+
     /**
      * Show the application dashboard.
      *
