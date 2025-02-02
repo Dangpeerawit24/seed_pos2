@@ -143,7 +143,7 @@
             @endif
         @elseif ($order->payment_method === 'qr')
             <p>ชำระผ่านธนาคาร</p>
-            <img src="{{ asset($order->proof_image) }}" alt="" width="90px" height="100px">
+            <img src="{{ asset($order->proof_image) }}" alt="" width="100%" height="150px">
         @endif
 
     @endif
