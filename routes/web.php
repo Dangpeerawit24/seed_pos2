@@ -17,9 +17,6 @@ use App\Http\Controllers\CashDrawerController;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/login', function () {
-    return view('auth.login');
-});
 
 
 Auth::routes();
@@ -84,7 +81,7 @@ All Staff Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:staff'])->group(function () {
     Route::get('/staff/pos', [POSController::class, 'index'])->name('staff.pos');
-    Route::get('/admin/dashboard', [POSController::class, 'index'])->name('staff.dashboard');
+    Route::get('/staff/dashboard', [POSController::class, 'index'])->name('staff.dashboard');
     Route::resource('/staff/pos', PosController::class);
     Route::resource('/staff/member', MembersController::class);
     Route::put('/staff/member/update/{id}', [MembersController::class, 'update'])->name('member.update');
