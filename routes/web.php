@@ -17,6 +17,9 @@ use App\Http\Controllers\CashDrawerController;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('/login', function () {
+    return view('auth.login');
+});
 
 
 Auth::routes();
