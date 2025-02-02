@@ -69,8 +69,8 @@
     <table style="margin-bottom: 10px;">
         <tr>
             {{-- @dd($order) --}}
-            <td style="width: 10%;">ชื่อลูกค้า :</td>
-            <td style="width: 90%;" colspan="3">
+            <td style="width: 20%;">ชื่อลูกค้า :</td>
+            <td style="width: 80%;" colspan="3">
                 <!-- สามารถดึงจาก $order->customer_name ได้ตามจริง -->
                 @if ($order->membership_id == '1' && $order->customer_name == 'null')
                     -

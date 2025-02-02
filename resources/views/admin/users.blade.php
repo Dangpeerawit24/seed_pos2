@@ -322,7 +322,7 @@
    
            // ฟังก์ชันการค้นหา
            function searchTable(query) {
-               filteredData = categories.filter((Users) =>
+               filteredData = Users.filter((Users) =>
                 Users.name.toLowerCase().includes(query.toLowerCase())
                );
                currentPage = 1;

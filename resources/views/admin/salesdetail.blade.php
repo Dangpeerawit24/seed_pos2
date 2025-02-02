@@ -70,7 +70,7 @@
             <p><strong>ยอดรวม:</strong> {{ $order->formatted_total }}</p>
             <p><strong>วิธีการชำระเงิน:</strong> {{ $order->payment_method_label }}</p>
             <p><strong>พนักงานขาย:</strong> {{ $order->user ? $order->user->name : 'ไม่ระบุ' }}</p>
-            @if ($order->payment_method_label === 'ออนไลน์')
+            @if ($order->payment_method_label === 'โอนเข้าบัญชี')
                 <button onclick="openSlipModal('{{ asset($order->proof_image) }}')"
                     class="px-4 py-2 mt-3 bg-blue-500 text-white rounded hover:bg-blue-600">สลิปหลักฐานการโอน</button>
             @endif

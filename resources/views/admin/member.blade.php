@@ -282,7 +282,7 @@
    
            // ฟังก์ชันการค้นหา
            function searchTable(query) {
-               filteredData = categories.filter((Member) =>
+               filteredData = Member.filter((Member) =>
                Member.name.toLowerCase().includes(query.toLowerCase()) ||
                Member.phone.toLowerCase().includes(query.toLowerCase())
                );

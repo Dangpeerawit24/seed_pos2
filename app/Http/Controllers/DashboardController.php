@@ -16,8 +16,8 @@ class DashboardController extends Controller
     {
         // คำนวณยอดขายรวมเฉพาะคำสั่งซื้อที่สถานะเป็น 'completed'
         $totalSales = Order::where('status', 'completed')
-            ->whereYear('created_at', now()->year)
-            ->whereMonth('created_at', now()->month)
+            ->whereYear('updated_at', now()->year)
+            ->whereMonth('updated_at', now()->month)
             ->sum('total_amount');
 
         // นับจำนวนคำสั่งซื้อที่สถานะเป็น 'completed'
