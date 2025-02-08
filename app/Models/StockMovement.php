@@ -11,8 +11,9 @@ class StockMovement extends Model
 
     protected $fillable = [
         'product_id',
-        'user_id',  // เพิ่มฟิลด์ user_id
+        'user_id', 
         'quantity',
+        'cost_price',
         'type',
         'note',
         'status',

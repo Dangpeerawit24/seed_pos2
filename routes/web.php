@@ -114,3 +114,4 @@ All API Routes List
 Route::post('/api/orders', [OrderController::class, 'store']);
 Route::get('/sales/filter', [DashboardController::class, 'filterSales']);
 Route::get('/orders/{order}/print', [OrderController::class, 'print'])->name('orders.print');
+Route::get('/stock/{order}/print', [StockController::class, 'stockPrint'])->name('stock.print');

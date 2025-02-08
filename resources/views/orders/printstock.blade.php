@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{ request('title') }} #{{ $order->order_number }}</title>
+    <title>เอกสารปรับรายการ #{{ $stock->id }}</title>
     <style>
         /* จัดรูปแบบสไตล์สำหรับการพิมพ์ */
         @media print {
@@ -55,6 +55,7 @@
         }
     </style>
 </head>
+{{-- @dd($stock) --}}
 
 <body onload="initPrint()">
     <!-- ปุ่มสั่งพิมพ์ซ้ำ (จะถูกซ่อนตอนสั่งพิมพ์) -->
@@ -63,16 +64,19 @@
     </div>
 
     <!-- หัวเอกสาร -->
-    <h1 style="text-align: center;">ใบปรับสต็อกสินค้า</h1>
+    <h1 style="text-align: center;">เอกสารปรับรายการ</h1>
 
     <!-- ข้อมูลลูกค้า / ใบสั่ง -->
     <table style="margin-bottom: 10px;">
         <tr>
-            <td>วันที่ :</td>
-            <td>{{ $order->created_at->format('d/m/') . ($order->created_at->format('Y') + 543) . $order->created_at->format(' H:i') }}
+            <td style="width: 20%;">ผู้ทำรายการ :</td>
+            <td>{{ $stock->user->name ?? 'ไม่มีข้อมูล' }}
             </td>
-            {{-- <td style="width: 15%;">เลขที่ใบส่ง :</td>
-            <td style="width: 25%;">{{ $order->order_number }}</td> --}}
+        </tr>
+        <tr>
+            <td>วันที่ :</td>
+            <td>{{ $stock->created_at->format('d/m/') . ($stock->created_at->format('Y') + 543) . $stock->created_at->format(' H:i') }}
+            </td>
         </tr>
     </table>
     <div>
@@ -82,7 +86,6 @@
     <table>
         <thead>
             <tr>
-                <th style="width: 5%;">ลำดับ</th>
                 <th style="width: 45%;">รายการ</th>
                 <th style="width: 10%;">ประเภท</th>
                 <th style="width: 10%;">จำนวน</th>
@@ -91,40 +94,53 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($order->items as $index => $item)
-                @php
-                    $rowTotal = $item->price * $item->quantity;
-                @endphp
-                <tr>
-                    <td class="text-center">{{ $loop->iteration }}</td>
-                    <td>
-                        {{ $item->product_name ?? ($item->product->name ?? 'N/A') }}
-                    </td>
-                    <td class="text-center">
-                        @if ( $item->type == 'in')
-                            เพิ่ม
-                        @else
-                            ลด
-                        @endif
-                    </td>
-                    <td class="text-center">{{ $item->quantity }}</td>
-                    <td class="text-right">{{ number_format($item->price, 2) }}</td>
-                    <td class="text-right">{{ number_format($rowTotal, 2) }}</td>
-                </tr>
-            @endforeach
+            @php
+                $rowTotal = $stock->cost_price * $stock->quantity;
+            @endphp
+            <tr>
+                <td>
+                    {{ $stock->product->name }}
+                </td>
+                <td class="text-center">
+                    @if ($stock->type == 'in')
+                        เพิ่ม
+                    @else
+                        ลด
+                    @endif
+                </td>
+                <td class="text-center">{{ abs($stock->quantity) }}</td>
+                <td class="text-right">{{ number_format($stock->cost_price, 2) }}</td>
+                <td class="text-right">{{ number_format($rowTotal, 2) }}</td>
+            </tr>
         </tbody>
         <tfoot>
             <tr>
                 <!-- รวมเงินท้ายตาราง -->
                 <td colspan="4" class="text-right"><strong>รวมเงิน</strong></td>
                 <td class="text-right">
-                    {{ number_format($order->total_amount, 2) }}
+                    {{ number_format($rowTotal, 2) }}
                 </td>
             </tr>
         </tfoot>
     </table>
-
     
+
+    @if (empty($stock->note))
+    @else
+        <h3 class=" mt-10">หมายเหตุ : {{ $stock->note }}</h3>
+    @endif
+
+    <table class="signature-table" style="margin-top: 30px; width: 100%;">
+        <tr>
+            <td style="width: 33%; text-align: center;">
+                <p style="margin-bottom: 16px;">ผู้ทำรายการ</p>
+                (...............................................) <br>
+                <p style="margin-top: 10px;">( ...... / ...... / ...... )</p>
+            </td>
+            
+        </tr>
+    </table>
+
     <script>
         function initPrint() {
             // สั่งพิมพ์ทันทีเมื่อหน้าโหลด
@@ -132,7 +148,7 @@
         }
         // หลังพิมพ์เสร็จ ให้ปิดหน้าต่างอัตโนมัติ (ต้องเป็น window.open)
         window.onafterprint = function() {
-            window.close();
+            // window.close();
         }
     </script>
 </body>

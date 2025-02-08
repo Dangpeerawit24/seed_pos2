@@ -84,6 +84,11 @@
                 <input type="number" id="stockQuantity" class="border rounded p-2 w-full" placeholder="กรอกจำนวน" value="1" />
             </div>
 
+            <div class="mb-2">
+                <label class="block text-sm font-semibold mb-1">ราคาต่อหน่วย:</label>
+                <input type="number" id="cost_price" class="border rounded p-2 w-full" placeholder="กรอกจำนวนเงิน" value="1" step="0.01"/>
+            </div>
+
             <!-- หมายเหตุ -->
             <div class="mb-2">
                 <label class="block text-sm font-semibold mb-1">หมายเหตุ:</label>
@@ -105,6 +110,7 @@ function openStockModal(productId, productName) {
     document.getElementById('stockProductName').textContent = productName;
 
     document.getElementById('stockQuantity').value = 1;
+    document.getElementById('cost_price').value = 1;
     document.getElementById('stockNote').value = '';
 
     document.getElementById('stockModal').classList.remove('hidden');
@@ -118,6 +124,7 @@ function submitStockForm() {
     const productId = document.getElementById('stockProductId').value;
     const operation = document.getElementById('stockOperation').value;
     const quantity = document.getElementById('stockQuantity').value || 0;
+    const costprice = document.getElementById('cost_price').value || 0;
     const note = document.getElementById('stockNote').value || '';
 
     const form = document.getElementById('stockForm');
@@ -129,6 +136,7 @@ function submitStockForm() {
     }
 
     form.innerHTML += `<input type="hidden" name="quantity" value="${quantity}" />
+                       <input type="hidden" name="cost_price" value="${costprice}" />
                        <input type="hidden" name="note" value="${note}" />`;
 
     form.submit();

@@ -38,6 +38,7 @@ class StockController extends Controller
     {
         $request->validate([
             'quantity' => 'required|integer|min:1',
+            'cost_price' => 'required|integer',
             'note' => 'nullable|string',
         ]);
 
@@ -48,6 +49,7 @@ class StockController extends Controller
             'product_id' => $product->id,
             'user_id' => auth()->id(), // บันทึก ID ของผู้ใช้งาน
             'quantity' => $request->quantity,
+            'cost_price' => $request->cost_price,
             'type' => 'in',
             'status' => 'approved',
             'note' => $request->note,
@@ -101,6 +103,7 @@ class StockController extends Controller
     {
         $request->validate([
             'quantity' => 'required|integer',
+            'cost_price' => 'required|integer',
             'note' => 'nullable|string'
         ]);
         $operation = 'add';
@@ -110,6 +113,7 @@ class StockController extends Controller
             'user_id' => Auth::id(),
             'quantity' => ($operation == 'add' ? 1 : -1) * abs($request->quantity),
             'operation' => $operation,
+            'cost_price' => $request->cost_price,
             'status' => 'pending', // Initial status is always pending
             'note' => $request->note
         ]);
@@ -160,5 +164,12 @@ class StockController extends Controller
         $movement = StockMovement::findOrFail($id);
         $movement->update(['status' => 'rejected']);
         return back()->with('error', 'ปฏิเสธการขอปรับสต็อก.');
+    }
+
+    public function stockPrint($id)
+    {
+        $stock = StockMovement::with('product')->findOrFail($id);
+        
+        return view('orders.printstock', compact('stock'));
     }
 }
