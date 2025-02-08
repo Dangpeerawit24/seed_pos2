@@ -59,7 +59,7 @@
 
             <!-- Modal Body -->
             <div class="px-6 py-4">
-                <form action="{{ route('member.store') }}" id="usersForm" method="POST">
+                <form action="{{ route('staff.member.store') }}" id="usersForm" method="POST">
                     @csrf
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>

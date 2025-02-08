@@ -83,9 +83,12 @@ Route::middleware(['auth', 'user-access:staff'])->group(function () {
     Route::get('/staff/pos', [POSController::class, 'index'])->name('staff.pos');
     Route::get('/staff/dashboard', [POSController::class, 'index'])->name('staff.dashboard');
     Route::resource('/staff/pos', PosController::class);
-    Route::resource('/staff/member', MembersController::class);
-    Route::put('/staff/member/update/{id}', [MembersController::class, 'update'])->name('member.update');
-    Route::delete('/staff/member/destroy/{id}', [MembersController::class, 'destroy'])->name('member.destroy');
+    Route::resource('/staff/member', MembersController::class)
+    ->names([
+        'store'   => 'staff.member.store',
+    ]);
+    Route::put('/staff/member/update/{id}', [MembersController::class, 'update'])->name('staff.member.update');
+    Route::delete('/staff/member/destroy/{id}', [MembersController::class, 'destroy'])->name('staff.member.destroy');
     Route::get('/staff/sales-history', [OrderController::class, 'salesHistory'])->name('staff.sales.history');
     Route::get('/staff/sales-history/{id}', [OrderController::class, 'salesDetail'])->name('staff.sales.detail');
     Route::get('/staff/sales-history2/{orderNumber}', [OrderController::class, 'salesDetail2'])->name('staff.sales.detail2');
