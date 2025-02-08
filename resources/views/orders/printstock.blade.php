@@ -148,7 +148,7 @@
         }
         // หลังพิมพ์เสร็จ ให้ปิดหน้าต่างอัตโนมัติ (ต้องเป็น window.open)
         window.onafterprint = function() {
-            // window.close();
+            window.close();
         }
     </script>
 </body>

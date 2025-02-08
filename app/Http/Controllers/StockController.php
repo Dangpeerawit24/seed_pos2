@@ -99,6 +99,22 @@ class StockController extends Controller
         return view('admin.stockmovements', compact('product', 'stockMovements'));
     }
 
+    public function showStaffStockMovements($productId)
+    {
+        $userId = Auth::id(); // Get the authenticated user ID
+
+        $product = Product::findOrFail($productId);
+        $stockMovements = $product->stockMovements()
+            ->with('user') // Correctly load the user relationship
+            ->where('user_id', $userId) // Filter stock movements by the authenticated user
+            ->where('status', '!=', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('staff.stockmovements', compact('product', 'stockMovements'));
+    }
+
+
     public function pendingStockAdd(Request $request, $id)
     {
         $request->validate([
@@ -169,7 +185,7 @@ class StockController extends Controller
     public function stockPrint($id)
     {
         $stock = StockMovement::with('product')->findOrFail($id);
-        
+
         return view('orders.printstock', compact('stock'));
     }
 }

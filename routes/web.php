@@ -94,6 +94,7 @@ Route::middleware(['auth', 'user-access:staff'])->group(function () {
     Route::get('/staff/sales-history2/{orderNumber}', [OrderController::class, 'salesDetail2'])->name('staff.sales.detail2');
     Route::get('/staff/purchase-history/{id}', [MembersController::class, 'purchaseHistory'])->name('staff.purchase_history');
     Route::get('/staff/stock', [StockController::class, 'index'])->name('staff.stock');
+    Route::get('/staff/stock/movements/{product}', [StockController::class, 'showStaffStockMovements'])->name('staff.stock.movements');
     Route::post('/staff/stock/pendingStock/{id}/add', [StockController::class, 'pendingStockAdd'])->name('pendingStockAdd');
     Route::post('/staff/stock/pendingStock/{id}/reduce', [StockController::class, 'pendingStockReduce'])->name('pendingStockReduce');
     

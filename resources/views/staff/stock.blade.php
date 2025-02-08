@@ -40,6 +40,7 @@
                     class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm">
                     ปรับสต็อก
                 </button>
+                <a href="/staff/stock/movements/{{ $product->id }}" class="text-blue-500 text-sm underline hover:text-blue-700">รายละเอียด</a>
             </div>
         </div>
         @endforeach

@@ -34,7 +34,8 @@
                         @forelse($stockMovements as $movement)
                             <tr class="hover:bg-gray-50">
                                 <td class="border border-gray-300 px-3 py-2">
-                                    {{ $movement->created_at->format('d/m/') . ($movement->created_at->format('Y') + 543) . $movement->created_at->format(' H:i') }}</td>
+                                    {{ $movement->created_at->format('d/m/') . ($movement->created_at->format('Y') + 543) . $movement->created_at->format(' H:i') }}
+                                </td>
                                 <td class="border border-gray-300 px-3 py-2">
                                     @if ($movement->type === 'in')
                                         <span class="text-green-500 font-bold">เพิ่ม</span>
