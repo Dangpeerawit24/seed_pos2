@@ -68,7 +68,7 @@ class DashboardController extends Controller
         )
             ->join('orders', 'order_items.order_id', '=', 'orders.id') // ตัวเชื่อมต่อกับตาราง orders
             ->whereDate('orders.updated_at', today()) // ใช้วันที่จากตาราง orders
-            ->where('orders.status', 'completed') // ใช้สถานะจากตาราง orders
+            ->whereIn('status', ['completed', 'rebateMoney']) // ใช้สถานะจากตาราง orders
             ->groupBy('product_id')
             ->with('product') // ต้องมั่นใจว่าการเชื่อมโยงข้อมูลผลิตภัณฑ์มีการตั้งค่าอย่างถูกต้อง
             ->get();
@@ -112,7 +112,7 @@ class DashboardController extends Controller
         ->join('orders', 'order_items.order_id', '=', 'orders.id')  // ตัวเชื่อมต่อกับตาราง orders
         ->whereMonth('orders.updated_at', Carbon::now()->month)     // กรองข้อมูลตามเดือนปัจจุบัน
         ->whereYear('orders.updated_at', Carbon::now()->year)       // กรองข้อมูลตามปีปัจจุบัน
-        ->where('orders.status', 'completed')                       // ใช้สถานะจากตาราง orders
+        ->whereIn('status', ['completed', 'rebateMoney'])             // ใช้สถานะจากตาราง orders
         ->groupBy('product_id')
         ->with('product')                                           // โหลดข้อมูลผลิตภัณฑ์ที่เกี่ยวข้อง
         ->get();
