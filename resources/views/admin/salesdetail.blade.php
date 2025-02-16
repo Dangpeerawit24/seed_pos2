@@ -193,7 +193,7 @@
     </div>
 
     <!-- Modal -->
-    <div id="slipModal" class="fixed inset-0 px-2 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    <div id="slipModal" class="fixed inset-0 px-2 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-4">
             <!-- ปุ่มปิด -->
             <div class="flex justify-end">
